@@ -29,21 +29,30 @@ function AddResume() {
 
     async function handlecreate(){
         setloading(true);
-        const resumeid = uuidv4();
+       
         const data = {
             title : resumename,
-            resumeid : resumeid,
+           
             userEmail : user?.primaryEmailAddress?.emailAddress,
             userName : user?.fullName
 
 
         }
 
-        await GlobalApi.createResume(data).then((res)=>console.log(res.data)
-        )
+        const res = await GlobalApi.createResume(data)
+
+        console.log(res.data.data)
+        console.log(res.data)
+
+        const resumeid = res.data.data.id;
+
+
+
+      
+        
 
         setloading(false);
-        navigate(`/dashboard/${resumeid}/edit`)
+        navigate(`/dashboard/edit/${resumeid}`)
         
 
         
@@ -52,7 +61,7 @@ function AddResume() {
 
   return (
     <div>
-      <div onClick={()=>setopendialog(true)} className=" ml-50 mt-10 border-dashed border-2 h-[240px] w-[200px] bg-gray-200 flex items-center justify-center rounded-2xl shadow-md hover:bg-gray-300 hover:scale-105 cursor-pointer transition-all">
+      <div onClick={()=>setopendialog(true)} className="  border-dashed border-2 h-[240px] w-[200px] bg-gray-200 flex items-center justify-center rounded-2xl shadow-md hover:bg-gray-300 hover:scale-105 cursor-pointer transition-all">
         <PlusSquare className="text-gray-600"></PlusSquare>
       </div>
 

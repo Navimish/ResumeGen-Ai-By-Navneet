@@ -14,16 +14,21 @@ const axios_client = axios.create({
 
 function createResume(data){
 
-   return  axios_client.post('user-resumes',{data :data});
+   return  axios_client.post('user-resumes',{data});
 
 }
 
 function getResume(userEmail){
 
-    return axios_client.get('user-resumes?filter[userEmail][$eq]='+userEmail)
+    return axios_client.get('user-resumes?filters[userEmail][$eq]='+userEmail)
+}
+
+function updateResume(data,resumeid){
+    return axios_client.put(`user-resumes/${resumeid}`,{data:data})
 }
 
 export default {
     createResume,
-    getResume
+    getResume,
+    updateResume
 }
