@@ -23,8 +23,8 @@ function getResume(userEmail){
     return axios_client.get('user-resumes?filters[userEmail][$eq]='+userEmail)
 }
 
-function updateResume(data,resumeid){
-    return axios_client.put(`user-resumes/${resumeid}`,{data:data})
+function updateResume(data,docid){
+    return axios_client.put(`user-resumes/${docid}`,{data:data})
 }
 
 export default {

@@ -26,12 +26,15 @@ function AddResume() {
     const {user} = useUser();
     const [loading,setloading] = useState(false);
     const navigate = useNavigate();
-
+    
+    
     async function handlecreate(){
-        setloading(true);
+      setloading(true);
+      
        
         const data = {
             title : resumename,
+            
            
             userEmail : user?.primaryEmailAddress?.emailAddress,
             userName : user?.fullName
@@ -41,10 +44,14 @@ function AddResume() {
 
         const res = await GlobalApi.createResume(data)
 
-        console.log(res.data.data)
-        console.log(res.data)
+       
 
-        const resumeid = res.data.data.id;
+        const docid = res?.data?.data?.documentId;
+       
+
+       
+
+       
 
 
 
@@ -52,7 +59,7 @@ function AddResume() {
         
 
         setloading(false);
-        navigate(`/dashboard/edit/${resumeid}`)
+        navigate(`/dashboard/edit/${docid}`)
         
 
         

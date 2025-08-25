@@ -8,7 +8,7 @@ import GlobalApi from "../../../service/GlobalApi.jsx";
 function Personalinfo({ setactivenext }) {
   const { res_info, setres_info } = useContext(ResumeInfocontext);
 
-  const {id} = useParams();
+  const {docid} = useParams();
 
   const [formdata,setformdata] = useState({});
 
@@ -17,15 +17,15 @@ function Personalinfo({ setactivenext }) {
     e.preventDefault();
     setactivenext(true)
 
-    const resumeid = id;
+    
 
     const data = formdata;
 
 
 
-    const res = await GlobalApi.updateResume(data,resumeid);
+    const res = await GlobalApi.updateResume(data,docid);
 
-    console.log(res);
+   
 
 
     

@@ -15,7 +15,7 @@ export function AppRoutes() {
           </Route>
           <Route path="/dashboard" element={<DashBoard></DashBoard>}></Route>
           <Route
-            path="/dashboard/edit/:id"
+            path="/dashboard/edit/:docid"
             element={<ResumeEdit></ResumeEdit>}
           ></Route>
         </Route>
