@@ -11,10 +11,10 @@ function Education() {
         {
             res_info?.education?.map((value,idx)=>(
 
-                <div>
+                <div key ={idx}>
 
                 
-                <div key ={idx} className='flex justify-between text-xs' >
+                <div  className='flex justify-between text-xs' >
 
                 <div>
 

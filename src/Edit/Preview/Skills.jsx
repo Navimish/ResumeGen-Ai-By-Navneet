@@ -14,7 +14,7 @@ function Skills() {
         {
             res_info?.skills?.map((value,idx)=>(
                 
-                <div className='text-xs '>
+                <div className='text-xs ' key={idx}>
                     <h1 className='font-bold mb-2'>{value?.name}</h1>
                     <div className="w-40 bg-gray-200 rounded h-2">
                         <div  className="bg-[#7D79EB] h-2 rounded"

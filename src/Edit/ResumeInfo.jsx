@@ -1,72 +1,69 @@
-import React, { useState } from 'react'
-import { Button } from '../components/ui/button.jsx';
+import React, { useState } from "react";
+import { Button } from "../components/ui/button.jsx";
 
-import Personalinfo from './InputInfo/Personalinfo.jsx'
-import { ArrowLeft, ArrowRight,  LayoutGrid } from 'lucide-react'
+import Personalinfo from "./InputInfo/Personalinfo.jsx";
+import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
+import Summeryinfo from "./InputInfo/Summeryinfo.jsx";
+import Experienceinfo from "./InputInfo/Experienceinfo.jsx";
 
 function ResumeInfo() {
+  const [activeidx, setactiveidx] = useState(3);
 
-  const [activeidx,setactiveidx] = useState(1);
-
-  const [activenext,setactivenext] = useState(false);
-
-
-
+  const [activenext, setactivenext] = useState(false);
 
   return (
-    <div className="h-[80vh] overflow-y-auto border-2 border-t-[17px] border-t-[#7D79EB] 
+    <div
+      className="h-[80vh] overflow-y-auto border-2 border-t-[17px] border-t-[#7D79EB] 
                 rounded-2xl shadow-lg p-8 
-                bg-white/20 backdrop-blur-md">
+                bg-white/20 backdrop-blur-md"
+    >
+      <div className="flex  justify-between ">
+        <Button className="cursor-pointer bg-[#7D79EB]">
+          <LayoutGrid></LayoutGrid>Theme
+        </Button>
 
-        <div className='flex  justify-between '>
+        <div className="flex gap-1 ">
+          {activeidx > 1 ? (
+            <Button
+              className="cursor-pointer bg-[#7D79EB]"
+              onClick={() => setactiveidx(activeidx - 1)}
+            >
+              {" "}
+              <ArrowLeft></ArrowLeft>
+            </Button>
+          ) : null}
 
-            <Button className="cursor-pointer bg-[#7D79EB]" ><LayoutGrid></LayoutGrid>Theme</Button>
-
-          <div className='flex gap-1 '>
-            {
-
-             activeidx>1?<Button className="cursor-pointer bg-[#7D79EB]" onClick={()=>setactiveidx(activeidx-1)}> <ArrowLeft></ArrowLeft></Button>:
-             null
-
-            }
-            
-
-              <Button className="cursor-pointer bg-[#7D79EB]" onClick={()=>setactiveidx(activeidx+1)} disabled ={!activenext}>Next <ArrowRight></ArrowRight></Button>
-            
-          </div> 
+          <Button
+            className="cursor-pointer bg-[#7D79EB]"
+            onClick={() => setactiveidx(activeidx + 1)}
+            disabled={!activenext}
+          >
+            Next <ArrowRight></ArrowRight>
+          </Button>
         </div>
+      </div>
 
-       
+      {/* Pesonal details */}
+      {activeidx == 1 ? (
+        <Personalinfo setactivenext={setactivenext}></Personalinfo>
+      ) : null}
 
+      {/* Summery */}
+      {activeidx == 2 ? (
+        <Summeryinfo setactivenext={setactivenext}></Summeryinfo>
+      ) : null}
 
-        {/* Pesonal details */}
-        {
-          activeidx==1?<Personalinfo setactivenext = {setactivenext}></Personalinfo>:null
-
-        }
-        
-
-
-        {/* summary */}
-        
-
-        {/* professional experience */}
-        
-
-
-        {/* Education */}
-        
-
-        {/* skills       */}
-
-       
-
-     
-        
-
+      {/* professional experience */}
+        {activeidx == 3 ? (
+        <Experienceinfo setactivenext={setactivenext}></Experienceinfo>
+        ):null}
       
+
+      {/* Education */}
+
+      {/* skills       */}
     </div>
-  )
+  );
 }
 
-export default ResumeInfo
+export default ResumeInfo;

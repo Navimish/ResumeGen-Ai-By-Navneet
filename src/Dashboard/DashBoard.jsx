@@ -36,9 +36,9 @@ function DashBoard() {
     <div>
 
       <h1 className='font-bold text-3xl ml-50 mt-17'>My Resumes</h1>
-      <h1 className=' ml-50 mt-2'> Make company wise resume to display your skills</h1>
+      <h1 className=' ml-40 mt-2'> Make company wise resume to display your skills</h1>
 
-      <div className=' ml-50 mt-10 grid grid-cols-4  gap-y-10 gap-x-4 '>
+      <div className=' ml-40 mt-10 grid grid-cols-5  gap-y-10 gap-x-4 mr-40'>
         <AddResume></AddResume>
 
        
@@ -53,5 +53,6 @@ function DashBoard() {
     </div>
   )
 }
+
 
 export default DashBoard

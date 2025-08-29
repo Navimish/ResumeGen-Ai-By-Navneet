@@ -47,6 +47,7 @@ function AddResume() {
        
 
         const docid = res?.data?.data?.documentId;
+        const mytitle = res?.data?.data?.title;
        
 
        
@@ -59,7 +60,7 @@ function AddResume() {
         
 
         setloading(false);
-        navigate(`/dashboard/edit/${docid}`)
+        navigate(`/dashboard/edit/${mytitle}/${docid}`)
         
 
         

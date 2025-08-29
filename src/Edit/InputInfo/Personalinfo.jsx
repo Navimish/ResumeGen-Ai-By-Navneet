@@ -4,6 +4,8 @@ import { ResumeInfocontext } from "../../Context/Resumeinfocontext";
 import { useParams } from "react-router-dom";
 import { Button } from "../../components/ui/button.jsx";
 import GlobalApi from "../../../service/GlobalApi.jsx";
+import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 
 function Personalinfo({ setactivenext }) {
   const { res_info, setres_info } = useContext(ResumeInfocontext);
@@ -12,8 +14,11 @@ function Personalinfo({ setactivenext }) {
 
   const [formdata,setformdata] = useState({});
 
+  const [loading, setloading] = useState(false);
+
 
   async function onsave(e){
+    setloading(true);
     e.preventDefault();
     setactivenext(true)
 
@@ -24,6 +29,10 @@ function Personalinfo({ setactivenext }) {
 
 
     const res = await GlobalApi.updateResume(data,docid);
+
+    setloading(false);
+
+    toast("Entry has been updated")
 
    
 
@@ -110,8 +119,10 @@ function Personalinfo({ setactivenext }) {
         </div>
 
         <div className="mt-5 flex w-full justify-end">
-          <Button className="cursor-pointer bg-[#7D79EB]" type="Submit">
-            Save
+          <Button className="cursor-pointer bg-[#7D79EB]" type="Submit">{
+            loading? <Loader2 className="animate-spin"></Loader2>:"Save"
+            }
+            
           </Button>
         </div>
       </form>
