@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import RichtextEditor from "../../components/custom/RichtextEditor";
+import { ResumeInfocontext } from "../../Context/Resumeinfocontext";
 
 function Experienceinfo({ setactivenext }) {
+
+    const {res_info, setres_info} = useContext(ResumeInfocontext);
 
     
     const formdata = {
@@ -16,10 +19,24 @@ function Experienceinfo({ setactivenext }) {
     };
     
     const [experiencelist, setexperiencelist] = useState([formdata]);
+
+
   useEffect(()=>{
-    console.log(experiencelist)
+   
+        setres_info({
+        ...res_info,
+        experience :experiencelist
+    })
 
   },[experiencelist])
+
+  function handletextedit(e,name,idx){
+        const newlist = experiencelist.slice();
+
+        newlist[idx][name] = e;
+
+        setexperiencelist(newlist);
+  }
 
 
   function handleinput(e,idx){
@@ -29,6 +46,11 @@ function Experienceinfo({ setactivenext }) {
     newlist[idx][name] = value;
 
     setexperiencelist(newlist)
+
+    setres_info({
+        ...res_info,
+        experience :newlist
+    })
 
   }
 
@@ -45,16 +67,16 @@ function Experienceinfo({ setactivenext }) {
 
   return (
     <div className="mt-5">
-      <h1 className="font-bold text-lg">Personal details</h1>
+      <h1 className="font-bold text-lg">Experiences :</h1>
       <h2 className="text-xs">Enter Your Previous Job Experiences : </h2>
 
       <div>
         {experiencelist.map((item, idx) => (
           <div key={idx} className="border-2 p-7 rounded-md mt-5 mb-5">
-            <div key={idx} className="grid grid-cols-2 gap-5 text-xs mt-7 font-bold">
+            <div key={idx} className="grid grid-cols-2 gap-5 text-xs mt-7 ">
               {/* title */}
               <div>
-                <label className="mb-2 block">Job Title</label>
+                <label className="mb-2 block font-bold">Job Title</label>
                 <Input
                   name="title"
                   onChange={(e) => handleinput(e, idx)}
@@ -63,7 +85,7 @@ function Experienceinfo({ setactivenext }) {
 
               {/* companyName */}
               <div>
-                <label className="mb-2 block">Company Name</label>
+                <label className="mb-2 block font-bold">Company Name</label>
                 <Input
                   name="companyName"
                   onChange={(e) => handleinput(e, idx)}
@@ -72,7 +94,7 @@ function Experienceinfo({ setactivenext }) {
 
               {/* city */}
               <div>
-                <label className="mb-2 block">City</label>
+                <label className="mb-2 block font-bold">City</label>
                 <Input
                   name="city"
                   onChange={(e) => handleinput(e, idx)}
@@ -81,7 +103,7 @@ function Experienceinfo({ setactivenext }) {
 
               {/* state */}
               <div>
-                <label className="mb-2 block">State</label>
+                <label className="mb-2 block font-bold">State</label>
                 <Input
                   name="state"
                   onChange={(e) => handleinput(e, idx)}
@@ -90,7 +112,7 @@ function Experienceinfo({ setactivenext }) {
 
               {/* startDate */}
               <div>
-                <label className="mb-2 block">Start Date</label>
+                <label className="mb-2 block font-bold">Start Date</label>
                 <Input
                   type="Date"
                   name="startDate"
@@ -100,7 +122,7 @@ function Experienceinfo({ setactivenext }) {
 
               {/* endDate */}
               <div>
-                <label className="mb-2 block">End Date</label>
+                <label className="mb-2 block font-bold">End Date</label>
                 <Input
                   type="Date"
                   name="endDate"
@@ -110,10 +132,10 @@ function Experienceinfo({ setactivenext }) {
 
               {/* workSummery */}
               <div className="col-span-2">
-                <h2 className="mb-2">Work Summery</h2>
+                
 
               
-              <RichtextEditor ></RichtextEditor>
+              <RichtextEditor sendtoparent={(e)=>handletextedit(e,'workSummery',idx)} idx={idx} ></RichtextEditor>
               </div>
             </div>
           </div>

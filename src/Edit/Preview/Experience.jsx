@@ -15,10 +15,10 @@ function PersonalExperience() {
                      <h1 className='font-bold'>{value?.title}</h1>
                      <div className='flex justify-between'>
 
-                     <span className='font-bold'>{value?.companyName} , {value?.city}</span>
-                     <span>{value?.startDate}-{value?.currentlyWorking?"Present":value?.endDate}</span>
+                     <span className='font-bold'>{value?.companyName} , {value?.city}, {value?.state}</span>
+                     <span>{value?.startDate}  --  {value?.currentlyWorking?"Present":value?.endDate}</span>
                      </div>
-                     <p className='mt-3'>{value.workSummery}</p>
+                     <div dangerouslySetInnerHTML={{ __html:value?.workSummery }} />
                      
                      
 

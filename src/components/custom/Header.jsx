@@ -24,7 +24,7 @@ function Header() {
             isSignedIn?(<div className='flex space-x-3'>
 
                     <Link to={'/dashboard'}>
-                    <Button variant= 'outline'>Dashboard</Button>
+                    <Button variant= 'outline' className="cursor-pointer">Dashboard</Button>
                     </Link>
 
                     <UserButton></UserButton>
