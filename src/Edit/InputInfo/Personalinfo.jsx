@@ -27,12 +27,19 @@ function Personalinfo({ setactivenext }) {
     const data = formdata;
 
 
+    try{
+          const res = await GlobalApi.updateResume(data,docid);
 
-    const res = await GlobalApi.updateResume(data,docid);
+        setloading(false);
 
-    setloading(false);
+        toast("Entry has been updated")
 
-    toast("Entry has been updated")
+
+    }catch(err){
+          console.log(err);
+            toast("Entry Submission Failed")
+            setloading(false)
+    }
 
    
 

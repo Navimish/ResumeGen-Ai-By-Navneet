@@ -127,3 +127,54 @@
   list-style: decimal;
   padding-left: 2em;
 }
+
+
+
+@media print {
+  
+  #no-print {
+    display: none !important;
+  }
+
+ 
+  @page {
+    size: auto; /* Specify the page size */
+    margin: 0;  /* Remove default browser print margins */
+  }
+
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto;   /* A4 width */
+    height: 297mm;  /* A4 height */
+    background: white;
+    -webkit-print-color-adjust: exact; /* Ensures background colors print in Chrome/Safari */
+    print-color-adjust: exact;         /* Standard property */
+  }
+
+
+  #print-area {
+    /* Override all screen layout styles */
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    
+    /* Remove flex properties that might be centering the content */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* Optional: Ensure the ResumePreview component inside also behaves */
+  /* This assumes ResumePreview has a direct child div */
+  #print-area > div {
+     width: 100% !important;
+     height: 100% !important;
+     margin: 0 !important;
+     padding: 1cm !important; /* Add some safe padding inside the page */
+     box-sizing: border-box; /* Important for padding to not add to the width/height */
+  }
+}

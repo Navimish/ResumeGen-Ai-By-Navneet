@@ -27,8 +27,14 @@ function updateResume(data,docid){
     return axios_client.put(`user-resumes/${docid}`,{data:data})
 }
 
+function getResumebyid(docid){
+    return axios_client.get('user-resumes/' + docid +'?populate=*')
+}
+
 export default {
     createResume,
     getResume,
-    updateResume
+    updateResume,
+    getResumebyid
+
 }

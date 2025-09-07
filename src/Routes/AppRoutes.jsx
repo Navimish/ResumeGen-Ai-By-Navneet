@@ -4,6 +4,7 @@ import SigninPage from "../Auth/Sign-in/SigninPage";
 import DashBoard from "../Dashboard/DashBoard";
 import Header from "../components/custom/Header";
 import ResumeEdit from "../Edit/ResumeEdit";
+import View from "../Download And View/View";
 
 export function AppRoutes() {
   return (
@@ -18,7 +19,12 @@ export function AppRoutes() {
             path="/dashboard/edit/:mytitle/:docid"
             element={<ResumeEdit></ResumeEdit>}
           ></Route>
+         
         </Route>
+
+         <Route path="/:mytitle/:docid/view&download"
+          element={<View></View>}
+          ></Route>
 
         <Route path="/auth/sign-in" element={<SigninPage></SigninPage>}></Route>
       </Routes>

@@ -25,7 +25,7 @@ function Education() {
 
                 </div>
 
-                <span>{value?.startDate} - {value?.endDate}</span>
+                <span>{value?.startDate} -- {value?.endDate}</span>
 
 
 

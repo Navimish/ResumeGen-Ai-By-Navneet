@@ -10,7 +10,7 @@ function Header() {
 
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div id="np-head" className='flex flex-col h-[70px]'>
 
     <div className='p-5 shadow-2xl flex justify-between' >
 

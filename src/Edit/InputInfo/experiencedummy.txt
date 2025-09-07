@@ -10,29 +10,33 @@ import { Loader2 } from "lucide-react";
 import { Textarea } from "../../components/ui/textarea";
 
 function Experienceinfo({ setactivenext }) {
-  const { res_info, setres_info } = useContext(ResumeInfocontext);
 
-  const { docid } = useParams();
+    const {res_info, setres_info} = useContext(ResumeInfocontext);
 
-  const formdata = {
-    title: "",
-    companyName: "",
-    city: "",
-    state: "",
-    startDate: "",
-    endDate: "",
-    workSummery: "",
-  };
+    const {docid}= useParams();
 
-  const [experiencelist, setexperiencelist] = useState([formdata]);
-  const [loading, setloading] = useState(false);
+    
+    const formdata = {
+        title: "",
+        companyName: "",
+        city: "",
+        state: "",
+        startDate: "",
+        endDate: "",
+        workSummery:""
+    };
+    
+    const [experiencelist, setexperiencelist] = useState([formdata]);
+    const [loading,setloading] = useState(false);
 
-  useEffect(() => {
-    if (res_info?.experience) {
-      setexperiencelist(res_info.experience);
-      console.log(res_info.experience);
-    }
-  }, [res_info]);
+
+useEffect(()=>{
+  if(res_info?.experience){
+    setexperiencelist(res_info.experience)
+    console.log(res_info.experience)
+  }
+
+},[res_info])
 
   // function handletextedit(e,name,idx){
   //       const newlist = experiencelist.slice();
@@ -46,55 +50,67 @@ function Experienceinfo({ setactivenext }) {
   //   })
   // }
 
-  function handleinput(e, idx) {
+
+  function handleinput(e,idx){
     const newlist = experiencelist.slice();
 
-    const { name, value } = e.target;
+    const {name,value} =e.target;
     newlist[idx][name] = value;
 
-    setexperiencelist(newlist);
+    setexperiencelist(newlist)
 
     setres_info({
-      ...res_info,
-      experience: newlist,
-    });
+        ...res_info,
+        experience :newlist
+    })
+
   }
 
-  function handleAdd() {
-    setexperiencelist([...experiencelist, formdata]);
+  function handleAdd(){
+    setexperiencelist(
+        [...experiencelist,formdata]
+    )
   }
 
-  function handleRemove() {
-    setexperiencelist(experiencelist.slice(0, -1));
+  function handleRemove(){
+
+    setexperiencelist(experiencelist.slice(0,-1))
   }
 
-  async function handlesave() {
-    const invalid = experiencelist.some((exp) => !exp.title);
+  async function handlesave(){
 
-    if (invalid) {
-      toast("Please Enter Title First");
+    const invalid = experiencelist.some(exp=>!exp.title)
+
+    if(invalid){
+      toast('Please Enter Title First')
       return;
     }
 
     setloading(true);
 
     const data = {
-      experience: experiencelist,
-    };
-
-    try {
-      const res = await GlobalApi.updateResume(data, docid);
-      if (res?.success || res?.status == 200) {
-        toast("Entry Submitted/Updated");
-      }
-
-      setloading(false);
-      setactivenext(true);
-    } catch (err) {
-      console.log(err);
-      toast("Submission Failed");
-      setloading(false);
+      experience:experiencelist
     }
+
+    
+    try{
+      
+    const res = await GlobalApi.updateResume(data,docid);
+     if(res?.success || res?.status == 200){
+      toast("Entry Submitted/Updated")
+     }
+
+     setloading(false)
+     setactivenext(true);
+
+    }catch(err){
+      console.log(err);
+      toast('Submission Failed')
+      setloading(false)
+
+    }
+
+
   }
 
   return (
@@ -110,7 +126,7 @@ function Experienceinfo({ setactivenext }) {
               <div>
                 <label className="mb-2 block font-bold">Job Title</label>
                 <Input
-                  value={experiencelist[idx].title}
+                  value ={experiencelist[idx].title}
                   name="title"
                   onChange={(e) => handleinput(e, idx)}
                 ></Input>
@@ -120,7 +136,7 @@ function Experienceinfo({ setactivenext }) {
               <div>
                 <label className="mb-2 block font-bold">Company Name</label>
                 <Input
-                  value={experiencelist[idx].companyName}
+                value ={experiencelist[idx].companyName}
                   name="companyName"
                   onChange={(e) => handleinput(e, idx)}
                 ></Input>
@@ -130,7 +146,7 @@ function Experienceinfo({ setactivenext }) {
               <div>
                 <label className="mb-2 block font-bold">City</label>
                 <Input
-                  value={experiencelist[idx].city}
+                value ={experiencelist[idx].city}
                   name="city"
                   onChange={(e) => handleinput(e, idx)}
                 ></Input>
@@ -140,7 +156,7 @@ function Experienceinfo({ setactivenext }) {
               <div>
                 <label className="mb-2 block font-bold">State</label>
                 <Input
-                  value={experiencelist[idx].state}
+                value ={experiencelist[idx].state}
                   name="state"
                   onChange={(e) => handleinput(e, idx)}
                 ></Input>
@@ -150,7 +166,7 @@ function Experienceinfo({ setactivenext }) {
               <div>
                 <label className="mb-2 block font-bold">Start Date</label>
                 <Input
-                  value={experiencelist[idx].startDate}
+                value ={experiencelist[idx].startDate}
                   type="Date"
                   name="startDate"
                   onChange={(e) => handleinput(e, idx)}
@@ -161,7 +177,7 @@ function Experienceinfo({ setactivenext }) {
               <div>
                 <label className="mb-2 block font-bold">End Date</label>
                 <Input
-                  value={experiencelist[idx].endDate}
+                value ={experiencelist[idx].endDate}
                   type="Date"
                   name="endDate"
                   onChange={(e) => handleinput(e, idx)}
@@ -170,11 +186,14 @@ function Experienceinfo({ setactivenext }) {
 
               {/* workSummery */}
               <div className="col-span-2">
-                <Textarea
-                  value={experiencelist[idx].workSummery}
-                  name="workSummery"
-                  onChange={(e) => handleinput(e, idx)}
-                ></Textarea>
+                
+
+              
+              <Textarea 
+              value ={experiencelist[idx].workSummery} name="workSummery"
+              onChange={(e) => handleinput(e, idx)}>
+
+              </Textarea>
               </div>
             </div>
           </div>
@@ -183,24 +202,15 @@ function Experienceinfo({ setactivenext }) {
 
       <div className="flex justify-between mt-8">
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className="cursor-pointer text-primary"
-            onClick={handleAdd}
-          >
-            + Add More Experience
-          </Button>
-          <Button
-            variant="outline"
-            className="cursor-pointer text-primary"
-            onClick={handleRemove}
-          >
-            - Remove Experience
-          </Button>
+
+        <Button variant="outline" className="cursor-pointer text-primary" onClick={handleAdd}>+ Add More Experience</Button>
+        <Button variant="outline" className="cursor-pointer text-primary" onClick={handleRemove} >- Remove Experience</Button>
         </div>
-        <Button onClick={handlesave} className="cursor-pointer bg-[#7D79EB]">
-          {loading ? <Loader2 className="animate-spin"></Loader2> : "Save"}
-        </Button>
+        <Button  onClick={handlesave}className="cursor-pointer bg-[#7D79EB]" type="Submit">{
+            loading? <Loader2 className="animate-spin"></Loader2>:"Save"
+            }
+            
+          </Button>
       </div>
     </div>
   );

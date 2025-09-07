@@ -5,11 +5,17 @@ import Personalinfo from "./InputInfo/Personalinfo.jsx";
 import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
 import Summeryinfo from "./InputInfo/Summeryinfo.jsx";
 import Experienceinfo from "./InputInfo/Experienceinfo.jsx";
+import EducationInfo from "./InputInfo/EducationInfo.jsx";
+import SkillsInfo from "./InputInfo/SkillsInfo.jsx";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ResumeInfo() {
-  const [activeidx, setactiveidx] = useState(3);
+  const [activeidx, setactiveidx] = useState(5);
 
   const [activenext, setactivenext] = useState(false);
+
+  const navigate = useNavigate();
+  const {mytitle,docid} = useParams();
 
   return (
     <div
@@ -60,8 +66,23 @@ function ResumeInfo() {
       
 
       {/* Education */}
+      {activeidx == 4 ? (
+        <EducationInfo setactivenext={setactivenext}></EducationInfo>
+        ):null}
 
       {/* skills       */}
+       {activeidx == 5 ? (
+        <SkillsInfo setactivenext={setactivenext}></SkillsInfo>
+        ):null}
+
+        {/* download and share */}
+        {
+          activeidx == 6?navigate(`/${mytitle}/${docid}/view&download`):null
+
+        }
+
+
+      
     </div>
   );
 }

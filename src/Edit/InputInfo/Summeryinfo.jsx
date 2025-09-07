@@ -19,6 +19,12 @@ function Summeryinfo({ setactivenext }) {
 
   const prompt = "Job Title : {jobTitle} , Give me a 4 to 5 line summary for my resume in json format"
 
+  useEffect(() => {
+  if (res_info?.summery) {
+    setSummery(res_info.summery)
+  }
+}, [res_info?.summery])
+
   async function handleaisession(){
 
     setloading(true)
@@ -26,6 +32,7 @@ function Summeryinfo({ setactivenext }) {
         console.log(PROMPT);
 
 
+    try{
     const result = await AIChatSession.sendMessage(PROMPT)
     console.log(result.response.text());
 
@@ -35,8 +42,20 @@ function Summeryinfo({ setactivenext }) {
     const summerytxt = parsed.summary.join(" ");
 
     setSummery(summerytxt);
+    setres_info({
+      ...res_info,
+      summery:summerytxt
+    })
 
     setloading(false)
+    
+
+    }catch(err){
+      console.log(err);
+      toast("Ai Generation Failed")
+      setloading(false)
+    }
+   
 
   }
 
@@ -66,13 +85,23 @@ function Summeryinfo({ setactivenext }) {
     
     };
 
-    const res = await GlobalApi.updateResume(data, docid);
+    try{
+          const res = await GlobalApi.updateResume(data, docid);
 
     setloading(false);
 
     setactivenext(true);
 
     toast("Entry has been updated")
+
+    }catch(err){
+         console.log(err);
+      toast("Entry Updation Failed")
+      setloading(false)
+
+    }
+
+
   }
 
   return (
@@ -94,7 +123,7 @@ function Summeryinfo({ setactivenext }) {
       <form onSubmit={onsave}>
         <Textarea
           className="mt-15"
-          onChange={(e) => setSummery(e.target.value)} value={Summery || res_info?.summery || ""}
+          onChange={(e) => setSummery(e.target.value)}  value={Summery || ""}
         ></Textarea>
         <div className="mt-5 flex w-full justify-end">
           <Button className="cursor-pointer bg-[#7D79EB]" type="Submit">
