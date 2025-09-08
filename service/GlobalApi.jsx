@@ -31,10 +31,15 @@ function getResumebyid(docid){
     return axios_client.get('user-resumes/' + docid +'?populate=*')
 }
 
+function deleteResumebyid(docid){
+    return axios_client.delete('user-resumes/' + docid )
+}
+
 export default {
     createResume,
     getResume,
     updateResume,
-    getResumebyid
+    getResumebyid,
+    deleteResumebyid
 
 }

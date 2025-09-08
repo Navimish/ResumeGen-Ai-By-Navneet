@@ -43,7 +43,7 @@ function DashBoard() {
 
        
            { resumeList.map((eachresume,idx)=>(
-              <ResumeCard  eachresume={eachresume} key={idx}></ResumeCard>))
+              <ResumeCard  eachresume={eachresume} key={idx} refreshdata={getuserlist}></ResumeCard>))
           }
       
       

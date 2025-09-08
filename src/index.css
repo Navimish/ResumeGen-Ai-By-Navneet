@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Dark mode variant for Tailwind */
 @custom-variant dark (&:is(.dark *));
 
+/* Theme variables */
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -41,15 +43,16 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* Root: Light mode */
 :root {
   --radius: 0.625rem;
-  --background: oklch(100% 0.00011 271.152);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
+  --background: oklch(1 0 270);          /* Light background */
+  --foreground: oklch(0.145 0 0);       /* Dark text */
+  --card: oklch(0.985 0 0);             /* Card background */
+  --card-foreground: oklch(0.145 0 0);  /* Card text */
+  --popover: oklch(0.985 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary:#7D79EB;
+  --primary: #7D79EB;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -76,40 +79,42 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Dark mode */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.18 0.03 270);        /* Softer dark background */
+  --foreground: oklch(93.424% 0.00866 16.638);            /* Bright text */
+  --card: oklch(0.22 0.03 270);             /* Slightly lighter card */
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.22 0.03 270);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.60 0.15 260);           /* Softer primary */
+  --primary-foreground: oklch(0.95 0 0);
+  --secondary: oklch(0.40 0.10 240);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.35 0.05 240);
+  --muted-foreground: oklch(0.75 0 0);
+  --accent: oklch(0.50 0.12 280);
+  --accent-foreground: oklch(0.95 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(1 0 0 / 15%);
+  --input: oklch(1 0 0 / 20%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar: oklch(0.22 0.03 270);
+  --sidebar-foreground: oklch(0.95 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-primary-foreground: oklch(0.95 0 0);
+  --sidebar-accent: oklch(0.50 0.12 280);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(1 0 0 / 15%);
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Base layer */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -118,63 +123,55 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* List styles in ResumePreview */
 .rsw-ce ul {
   list-style: disc;
   padding-left: 2em;
 }
-
 .rsw-ce ol {
   list-style: decimal;
   padding-left: 2em;
 }
 
-
-
+/* Print Styles */
 @media print {
-  
   #no-print {
     display: none !important;
   }
 
- 
   @page {
-    size: auto; /* Specify the page size */
-    margin: 0;  /* Remove default browser print margins */
+    size: auto;
+    margin: 0;
   }
 
   body, html {
     margin: 0 !important;
     padding: 0 !important;
-    width: auto;   /* A4 width */
-    height: 297mm;  /* A4 height */
+    width: auto;
+    height: 297mm;
     background: white;
-    -webkit-print-color-adjust: exact; /* Ensures background colors print in Chrome/Safari */
-    print-color-adjust: exact;         /* Standard property */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
-
   #print-area {
-    /* Override all screen layout styles */
     display: block !important;
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
-    
-    /* Remove flex properties that might be centering the content */
     position: absolute;
     top: 0;
     left: 0;
   }
 
-  /* Optional: Ensure the ResumePreview component inside also behaves */
-  /* This assumes ResumePreview has a direct child div */
   #print-area > div {
      width: 100% !important;
      height: 100% !important;
      margin: 0 !important;
-     padding: 1cm !important; /* Add some safe padding inside the page */
-     box-sizing: border-box; /* Important for padding to not add to the width/height */
+     padding: 1cm !important;
+     box-sizing: border-box;
   }
 }

@@ -5,7 +5,6 @@ import ResumePreview from '../Edit/ResumePreview'
 import GlobalApi from '../../service/GlobalApi';
 import { ResumeInfocontext } from '../Context/Resumeinfocontext';
 import Header from '../components/custom/Header';
-import { RWebShare } from 'react-web-share';
 
 function View() {
 
@@ -34,6 +33,23 @@ function View() {
         window.print();
     }
 
+    async function handleShare(){
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    text:`Hello Their, This is mu ${mytitle} resume , Please open it` ,
+                    url: import.meta.env.VITE_Base_url + `/${mytitle}/${docid}/view&download`,
+                    title: `${res_info?.firstName} ${res_info?.lastName} rResume`,
+                })
+                console.log("shared successfully!")
+            } catch (err) {
+                console.error("Error sharing:", err)
+            }
+        } else {
+            alert("Sharing not supported on this browser.")
+        }
+    }
+
     
   return (
 
@@ -52,17 +68,7 @@ function View() {
 
         <div className='flex justify-center gap-200 mt-10'>
             <Button className='cursor-pointer' onClick={handleDownload}>Download</Button>
-                <RWebShare
-        data={{
-          text:`Hello Their, This is mu ${mytitle} resume , Please open it` ,
-          url: import.meta.env.VITE_Base_url + `/${mytitle}/${docid}/view&download`,
-          title: `${res_info?.firstName} ${res_info?.lastName} rResume`,
-        }}
-        onClick={() => console.log("shared successfully!")}
-      >
-        <Button className='cursor-pointer'>Share</Button>
-      </RWebShare>
-            
+            <Button className='cursor-pointer' onClick={handleShare}>Share</Button>
         </div>
 
         </div>

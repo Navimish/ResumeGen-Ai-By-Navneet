@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../components/ui/button.jsx";
 
 import Personalinfo from "./InputInfo/Personalinfo.jsx";
-import { ArrowLeft, ArrowRight, LayoutGrid } from "lucide-react";
+import { ArrowLeft, ArrowRight, Home, HomeIcon, LayoutDashboard, LayoutGrid } from "lucide-react";
 import Summeryinfo from "./InputInfo/Summeryinfo.jsx";
 import Experienceinfo from "./InputInfo/Experienceinfo.jsx";
 import EducationInfo from "./InputInfo/EducationInfo.jsx";
@@ -24,8 +24,8 @@ function ResumeInfo() {
                 bg-white/20 backdrop-blur-md"
     >
       <div className="flex  justify-between ">
-        <Button className="cursor-pointer bg-[#7D79EB]">
-          <LayoutGrid></LayoutGrid>Theme
+        <Button onClick={()=>navigate(`/dashboard`)} className="cursor-pointer bg-[#7D79EB]">
+            <LayoutDashboard></LayoutDashboard>    Dashboard
         </Button>
 
         <div className="flex gap-1 ">
