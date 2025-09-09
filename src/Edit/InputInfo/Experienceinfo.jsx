@@ -68,7 +68,7 @@ function Experienceinfo({ setactivenext }) {
     setexperiencelist(experiencelist.slice(0, -1));
   }
 
-  async function handlesave() {
+async function handlesave() {
     const invalid = experiencelist.some((exp) => !exp.title);
 
     if (invalid) {
@@ -78,12 +78,26 @@ function Experienceinfo({ setactivenext }) {
 
     setloading(true);
 
-    const data = {
-      experience: experiencelist,
-    };
+    const payload = experiencelist.map(exp => {
+      // destructure id
+      const { id, ...restOfExp } = exp; 
+
+      // Return the rest of the object
+      return {
+        ...restOfExp,
+        startDate: restOfExp.startDate === '' ? null : restOfExp.startDate,
+        endDate: restOfExp.endDate === '' ? null : restOfExp.endDate,
+      };
+    });
 
     try {
+      const data = {
+        experience: payload 
+      };
+
+      console.log("Final data being sent:", JSON.stringify(data, null, 2));
       const res = await GlobalApi.updateResume(data, docid);
+      
       if (res?.success || res?.status == 200) {
         toast("Entry Submitted/Updated");
       }
@@ -91,8 +105,8 @@ function Experienceinfo({ setactivenext }) {
       setloading(false);
       setactivenext(true);
     } catch (err) {
-      console.log(err);
-      toast("Submission Failed");
+      console.error(err); 
+      toast("Submission Failed. Check console for details.");
       setloading(false);
     }
   }
@@ -198,7 +212,7 @@ function Experienceinfo({ setactivenext }) {
             - Remove Experience
           </Button>
         </div>
-        <Button onClick={handlesave} className="cursor-pointer bg-[#7D79EB]">
+        <Button onClick={()=>{handlesave()}} className="cursor-pointer bg-[#7D79EB]">
           {loading ? <Loader2 className="animate-spin"></Loader2> : "Save"}
         </Button>
       </div>

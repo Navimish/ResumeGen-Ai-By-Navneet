@@ -10,7 +10,7 @@ import SkillsInfo from "./InputInfo/SkillsInfo.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 
 function ResumeInfo() {
-  const [activeidx, setactiveidx] = useState(5);
+  const [activeidx, setactiveidx] = useState(3);
 
   const [activenext, setactivenext] = useState(false);
 

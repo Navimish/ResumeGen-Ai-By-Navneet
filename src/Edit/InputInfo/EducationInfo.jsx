@@ -128,41 +128,42 @@ function EducationInfo({setactivenext}) {
 
     }
 
-    async function save(){
+   async function save() {
+    setload(true);
 
-        setload(true);
+    const payload = list.map(edu => {
+      const { id, ...restOfEdu } = edu;
+      return {
+        ...restOfEdu,
+        startDate: restOfEdu.startDate === '' ? null : restOfEdu.startDate,
+        endDate: restOfEdu.endDate === '' ? null : restOfEdu.endDate,
+      };
+    });
 
-        const data = {
-            education:list
-        }
+    const data = {
+      education: payload
+    };
 
-        try{
-                    const updateresp = await GlobalApi.updateResume(data,docid);
-        console.log(updateresp);
+    try {
+      console.log("Sending updated education data:", JSON.stringify(data, null, 2));
+      const updateresp = await GlobalApi.updateResume(data, docid);
 
-        if(updateresp?.success || updateresp?.status == 200){
-            toast("Entry submitted/Updated")
-        }else{
+      if (updateresp?.success || updateresp?.status == 200) {
+        toast("Entry submitted/Updated");
+      } else {
+        toast("Process Failed");
+      }
 
-            toast("Process Failed")
+      setload(false);
+      setactivenext(true);
 
-        }
-
-        setload(false);
-        setactivenext(true);
-
-        }catch(err){
-        console.log(err);
-         toast("Entry Submission Failed")
-         setload(false);
-
-        }
-
-
-
-
-
+    } catch (err) {
+      console.error(err);
+      toast("Entry Submission Failed");
+      setload(false);
     }
+}
+
   return (
     <div className='mt-7'>
 
