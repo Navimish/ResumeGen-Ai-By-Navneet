@@ -6,8 +6,9 @@ import { ResumeInfocontext } from "../../Context/Resumeinfocontext";
 import GlobalApi from "../../../service/GlobalApi";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Brain, Loader2 } from "lucide-react";
 import { Textarea } from "../../components/ui/textarea";
+import { AIChatSession } from "../../../service/AiModal";
 
 function Experienceinfo({ setactivenext }) {
   const { res_info, setres_info } = useContext(ResumeInfocontext);
@@ -24,15 +25,54 @@ function Experienceinfo({ setactivenext }) {
     workSummery: "",
   };
 
-  const [experiencelist, setexperiencelist] = useState([formdata]);
+  const [experiencelist, setexperiencelist] = useState(res_info?.experience?.length ? res_info.experience :[formdata]);
   const [loading, setloading] = useState(false);
+  const[aiload,setaiload] = useState(false);
 
-  useEffect(() => {
-    if (res_info?.experience) {
-      setexperiencelist(res_info.experience);
-      console.log(res_info.experience);
+  const prompt  = `Generate a summary of 2 to 3 lines for a resume for work summary as a {jobtitle} Important: Always return the response ONLY as valid JSON in the following format:
+{"resumeSummery": ["point1", "point2", "point3"]} and also parsed key will be resumeSummery not resumesummary
+;`
+
+  async function handleAi(idx){
+
+    setaiload(true);
+
+    if(!experiencelist?.[idx].title){
+      toast("Please Enter Job Title")
+      return;
     }
-  }, [res_info]);
+
+    const PROMPT = prompt.replace("{jobtitle}", experiencelist?.[idx].title)
+    // console.log(PROMPT);
+
+    const res = await AIChatSession.sendMessage(PROMPT);
+    const responsetxt = res.response.text();
+    const parsed = JSON.parse(responsetxt);
+    // console.log(parsed);
+    const joinedSummary = parsed.resumeSummery.join("\n");
+        // console.log(joinedSummary);
+
+
+        const newlist = experiencelist.slice();
+        newlist[idx].workSummery = joinedSummary;
+
+        setexperiencelist(newlist);
+
+        setres_info({
+          ...res_info,
+          experience : newlist
+        })
+
+        setaiload(false);
+
+  }
+
+  // useEffect(() => {
+  //   if (res_info?.experience) {
+  //     setexperiencelist(res_info.experience);
+  //     // console.log(res_info.experience);
+  //   }
+  // }, [res_info]);
 
   // function handletextedit(e,name,idx){
   //       const newlist = experiencelist.slice();
@@ -65,6 +105,7 @@ function Experienceinfo({ setactivenext }) {
   }
 
   function handleRemove() {
+    
     setexperiencelist(experiencelist.slice(0, -1));
   }
 
@@ -182,8 +223,14 @@ async function handlesave() {
                 ></Input>
               </div>
 
+                <div>
+                  <Button onClick={()=>handleAi(idx)} variant="outline" className="cursor-pointer  text-primary">{
+                    aiload?<Loader2 className="animate-spin"></Loader2>:<><Brain></Brain> Generate Work Summery</>
+                    }</Button>
+                </div>
+
               {/* workSummery */}
-              <div className="col-span-2">
+              <div className="col-span-2 text-xs">
                 <Textarea
                   value={experiencelist[idx].workSummery}
                   name="workSummery"

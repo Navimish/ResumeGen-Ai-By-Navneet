@@ -18,6 +18,7 @@ function PersonalExperience() {
                      <span className='font-bold'>{value?.companyName} , {value?.city}, {value?.state}</span>
                      <span>{value?.startDate}  --  {value?.currentlyWorking?"Present":value?.endDate}</span>
                      </div>
+                     <br />
                      <div dangerouslySetInnerHTML={{ __html:value?.workSummery }} />
                      
                      
