@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronRight, FileText, Zap, Download, Star, ArrowRight, Sparkles } from 'lucide-react';
+import { FileText, Zap, Download, Star, ArrowRight, Linkedin, Github } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ResumeGenHomePage() {
   const [isVisible, setIsVisible] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,19 +18,14 @@ export default function ResumeGenHomePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-      {/* Modern geometric background */}
+      {/* Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Large decorative circles */}
         <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full opacity-20" style={{ backgroundColor: '#7D79EB' }}></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full opacity-15" style={{ backgroundColor: '#7D79EB' }}></div>
-        
-        {/* Floating elements */}
-        <div className="absolute top-1/3 left-10 w-6 h-6 rounded-full opacity-30 animate-bounce" style={{ backgroundColor: '#7D79EB', animationDelay: '0s' }}></div>
-        <div className="absolute top-1/2 right-20 w-4 h-4 rounded-full opacity-40 animate-bounce" style={{ backgroundColor: '#7D79EB', animationDelay: '1s' }}></div>
-        <div className="absolute bottom-1/3 left-1/4 w-8 h-8 rounded-full opacity-25 animate-bounce" style={{ backgroundColor: '#7D79EB', animationDelay: '2s' }}></div>
+        <div className="absolute top-1/3 left-10 w-6 h-6 rounded-full opacity-30 animate-bounce" style={{ backgroundColor: '#7D79EB' }}></div>
+        <div className="absolute top-1/2 right-20 w-4 h-4 rounded-full opacity-40 animate-bounce" style={{ backgroundColor: '#7D79EB' }}></div>
+        <div className="absolute bottom-1/3 left-1/4 w-8 h-8 rounded-full opacity-25 animate-bounce" style={{ backgroundColor: '#7D79EB' }}></div>
       </div>
-
-
 
       {/* Hero Section */}
       <main className="relative z-10 flex-1 flex items-center justify-center px-6 py-16">
@@ -43,14 +37,13 @@ export default function ResumeGenHomePage() {
             }`}
           >
             <div className="relative mb-8">
-              {/* Decorative elements around title */}
               <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-1 rounded-full" style={{ backgroundColor: '#7D79EB' }}></div>
               
               <h1 className="text-7xl md:text-9xl font-black mb-4 relative">
-                <h1 className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent">
                   Resume
-                <span  style={{ color: '#7D79EB' }}>Gen</span>
-                </h1>
+                </span>
+                <span style={{ color: '#7D79EB' }}>Gen</span>
               </h1>
               
               <div className="flex items-center justify-center space-x-4 mb-6">
@@ -59,11 +52,30 @@ export default function ResumeGenHomePage() {
                 <div className="h-px bg-gray-300 flex-1 max-w-20"></div>
               </div>
               
-              <div className="relative inline-block">
+              <div className="relative inline-block mb-6">
                 <h2 className="text-5xl md:text-6xl font-bold text-gray-900 relative z-10">
                   Navneet Mishra
                 </h2>
                 <div className="absolute -bottom-3 left-0 w-full h-4 opacity-30 rounded-lg" style={{ backgroundColor: '#7D79EB' }}></div>
+              </div>
+
+              {/* Circular Social Icons */}
+              <div className="flex gap-6 justify-center mt-6">
+                    <a href="https://www.linkedin.com/in/navneet-mishra-320081249"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-[#7D79EB15] border border-gray-200 hover:bg-[#7D79EB] hover:text-white transition-all duration-300 shadow-md hover:shadow-xl"
+          >
+            <Linkedin className="w-6 h-6" />
+          </a>
+               <a
+            href="https://github.com/Navimish"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 rounded-full bg-[#7D79EB15] border border-gray-200 hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-md hover:shadow-xl"
+          >
+            <Github className="w-6 h-6" />
+          </a>
               </div>
             </div>
           </div>
@@ -80,18 +92,21 @@ export default function ResumeGenHomePage() {
             </p>
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <div 
             className={`transform transition-all duration-1000 delay-500 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-              <button onClick={()=>navigate('/dashboard')} className="cursor-pointer group text-white px-10 py-4 rounded-2xl text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl flex items-center space-x-3 shadow-lg" style={{ backgroundColor: '#7D79EB' }}>
+            <div className="flex justify-center mb-20">
+              <button 
+                onClick={() => navigate('/dashboard')} 
+                className="cursor-pointer group text-white px-10 py-4 rounded-2xl text-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-2xl flex items-center space-x-3 shadow-lg" 
+                style={{ backgroundColor: '#7D79EB' }}
+              >
                 <span>Start Creating</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              
             </div>
           </div>
 
@@ -107,9 +122,7 @@ export default function ResumeGenHomePage() {
                   key={index}
                   className="group bg-white border border-gray-200 rounded-3xl p-8 hover:border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-xl relative overflow-hidden"
                 >
-                  {/* Subtle background gradient on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity rounded-3xl" style={{ background: `linear-gradient(135deg, #7D79EB, transparent)` }}></div>
-                  
                   <div className="relative z-10">
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#7D79EB15' }}>
                       <feature.icon className="w-8 h-8" style={{ color: '#7D79EB' }} />

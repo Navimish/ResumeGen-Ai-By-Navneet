@@ -60,6 +60,7 @@ function Header() {
               <h1 className='text-white text-xl font-bold tracking-tight'>
                 Resume<span style={{color: 'rgba(255,255,255,0.8)'}}>Gen</span>
               </h1>
+              
               <p className='text-white text-xs' style={{opacity: 0.75}}>AI-Powered Resumes</p>
             </div>
           </div>

@@ -19,7 +19,7 @@ function SkillsInfo({setactivenext}) {
   }
 
   const {res_info,setres_info}= useContext(ResumeInfocontext);
-  const [skilllist,setskilllist] = useState([skilldata]);
+  const [skilllist,setskilllist] = useState(res_info?.skills?.length ? res_info.skills :[skilldata]);
   const [loading,setloading] = useState(false);
   const {docid} = useParams();
 
@@ -109,7 +109,7 @@ function handleRemove() {
 
 
               <label className=' font-bold'>Enter Your Skill : </label>
-              <Input onChange = {(e)=>handlechange(e,idx)} name="skill" placeholder ="eg : React" className="mt-1"></Input>
+              <Input value ={skilllist[idx].skill} onChange = {(e)=>handlechange(e,idx)} name="skill" placeholder ="eg : React" className="mt-1"></Input>
               </div>
 
               <div className='mt-7 flex gap-2'>
@@ -117,7 +117,7 @@ function handleRemove() {
 
               <label className=' font-bold'>Enter Your Rating : </label>
               {/* <Input onChange = {(e)=>handlechange(e,idx)} name= "rating" placeholder ="eg : 20,30" className="mt-1"></Input> */}
-              <Rating className ="size-medium " name="rating"  defaultValue={0} onChange={(e)=>handlechange(e,idx)} />
+              <Rating value ={skilllist[idx].rating} className ="size-medium " name="rating"  defaultValue={0} onChange={(e)=>handlechange(e,idx)} />
               </div>
 
             </div>
